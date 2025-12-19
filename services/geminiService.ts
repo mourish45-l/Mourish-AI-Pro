@@ -7,20 +7,20 @@ export class GeminiService {
 
   constructor(apiKey: string) {
     if (!apiKey) {
-      console.error("GeminiService: API Key is missing. Ensure process.env.API_KEY is configured in your environment.");
+      console.error("GeminiService: API Key is missing.");
     }
     this.ai = new GoogleGenAI({ apiKey });
   }
 
   async chat(message: string) {
     try {
-      const chatInstance = this.ai.chats.create({
+      const response = await this.ai.models.generateContent({
         model: MODELS.CHAT,
+        contents: message,
         config: {
-          systemInstruction: "You are Mourish AI, a world-class professional AI assistant. You are helpful, precise, and concise.",
+          systemInstruction: "You are Mourish AI, a world-class professional AI assistant. You are precise, helpful, and concise. Your goal is to provide expert-level assistance.",
         }
       });
-      const response = await chatInstance.sendMessage({ message });
       return response;
     } catch (error) {
       console.error("GeminiService.chat error:", error);
@@ -48,11 +48,16 @@ export class GeminiService {
     try {
       const response = await this.ai.models.generateContent({
         model: MODELS.BUILDER,
-        contents: `Create a single-file web application based on this request: "${prompt}". 
-        Return ONLY the complete HTML code including Tailwind CSS via CDN and any necessary JS. 
-        Do not include markdown code blocks, just the raw code.`,
+        contents: `Task: Create a professional, single-file web application for: "${prompt}". 
+        Requirements:
+        1. Complete HTML structure.
+        2. Styling via Tailwind CSS CDN.
+        3. Interactive JS functionality if needed.
+        4. Modern, responsive design.
+        Return ONLY the raw code without markdown formatting.`,
         config: {
-          temperature: 0.2,
+          temperature: 0.1,
+          thinkingConfig: { thinkingBudget: 4000 }
         },
       });
       return response.text;
@@ -92,6 +97,7 @@ export class GeminiService {
 
   async generateVideo(prompt: string, imageBase64?: string, aspectRatio: '16:9' | '9:16' = '16:9') {
     try {
+      const aiInstance = new GoogleGenAI({ apiKey: process.env.API_KEY || '' });
       const config: any = {
         model: MODELS.VIDEO,
         prompt: prompt || 'Animate the scene beautifully.',
@@ -109,11 +115,11 @@ export class GeminiService {
         };
       }
 
-      let operation = await this.ai.models.generateVideos(config);
+      let operation = await aiInstance.models.generateVideos(config);
 
       while (!operation.done) {
-        await new Promise(resolve => setTimeout(resolve, 5000));
-        operation = await this.ai.operations.getVideosOperation({ operation });
+        await new Promise(resolve => setTimeout(resolve, 10000));
+        operation = await aiInstance.operations.getVideosOperation({ operation });
       }
 
       const downloadLink = operation.response?.generatedVideos?.[0]?.video?.uri;

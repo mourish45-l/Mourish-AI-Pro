@@ -12,48 +12,46 @@ const App: React.FC = () => {
 
   const renderContent = () => {
     switch (currentView) {
-      case AppView.CHAT:
-        return <ChatBot />;
-      case AppView.BUILDER:
-        return <CodeBuilder />;
-      case AppView.MEDIA_LAB:
-        return <MediaLab />;
-      case AppView.VOICE_STUDIO:
-        return <VoiceStudio />;
-      default:
-        return <ChatBot />;
+      case AppView.CHAT: return <ChatBot />;
+      case AppView.BUILDER: return <CodeBuilder />;
+      case AppView.MEDIA_LAB: return <MediaLab />;
+      case AppView.VOICE_STUDIO: return <VoiceStudio />;
+      default: return <ChatBot />;
     }
   };
 
   return (
-    <div className="flex min-h-screen bg-gray-950 text-gray-100 font-sans">
+    <div className="flex min-h-screen bg-gray-950 text-gray-100 font-sans selection:bg-blue-600 selection:text-white">
       <Sidebar currentView={currentView} setView={setCurrentView} />
       
-      <main className="flex-1 p-4 md:p-8 overflow-y-auto">
-        <header className="mb-8 flex flex-col md:flex-row md:items-center md:justify-between gap-4">
+      <main className="flex-1 p-6 md:p-10 overflow-y-auto">
+        <header className="mb-10 flex flex-col md:flex-row md:items-center md:justify-between gap-6 border-b border-gray-900 pb-8">
           <div>
-            <h2 className="text-2xl font-bold text-white tracking-tight">
-              {currentView === AppView.CHAT && 'AI Workspace'}
-              {currentView === AppView.BUILDER && 'Web App Architect'}
-              {currentView === AppView.MEDIA_LAB && 'Generative Media Lab'}
-              {currentView === AppView.VOICE_STUDIO && 'Voice Integration Hub'}
+            <h2 className="text-3xl font-black text-white tracking-tighter">
+              {currentView === AppView.CHAT && 'Mourish Assistant'}
+              {currentView === AppView.BUILDER && 'App Architect Pro'}
+              {currentView === AppView.MEDIA_LAB && 'Generative Studio'}
+              {currentView === AppView.VOICE_STUDIO && 'Vocal Intelligence'}
             </h2>
-            <p className="text-gray-400 text-sm mt-1">
-              {currentView === AppView.CHAT && 'Multimodal reasoning with Gemini 3 Pro.'}
-              {currentView === AppView.BUILDER && 'Instant website generation and live editing.'}
-              {currentView === AppView.MEDIA_LAB && 'Professional 4K images and cinematic videos.'}
-              {currentView === AppView.VOICE_STUDIO && 'Real-time conversational intelligence.'}
+            <p className="text-gray-500 text-sm mt-2 font-medium">
+              {currentView === AppView.CHAT && 'Multimodal reasoning and expert insights.'}
+              {currentView === AppView.BUILDER && 'Instant AI-driven web application development.'}
+              {currentView === AppView.MEDIA_LAB && 'Cinematic image and video synthesis.'}
+              {currentView === AppView.VOICE_STUDIO && 'Human-parity conversational interface.'}
             </p>
           </div>
-          <div className="flex items-center space-x-4">
-            <div className="hidden sm:flex items-center space-x-2 bg-gray-900 border border-gray-800 px-3 py-1.5 rounded-full text-xs font-medium text-gray-400">
-              <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse"></span>
-              <span>Gemini 3 Pro Active</span>
+          <div className="flex items-center space-x-6">
+            <div className="flex items-center space-x-3 bg-gray-900 border border-gray-800 px-5 py-2.5 rounded-2xl shadow-xl">
+              <span className="flex h-2.5 w-2.5 relative">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-blue-400 opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-blue-500"></span>
+              </span>
+              <span className="text-xs font-black text-gray-300 tracking-widest uppercase">Mourish Core Online</span>
             </div>
           </div>
         </header>
 
-        <div className="h-[calc(100vh-160px)]">
+        <div className="h-[calc(100vh-200px)]">
           {renderContent()}
         </div>
       </main>
