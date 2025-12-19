@@ -1,0 +1,8 @@
+{
+  "name": "Mourish AI",
+  "description": "A comprehensive AI-powered workspace to build web apps, generate professional media, and interact via voice using the latest Gemini models.",
+  "requestFramePermissions": [
+    "camera",
+    "microphone"
+  ]
+}
