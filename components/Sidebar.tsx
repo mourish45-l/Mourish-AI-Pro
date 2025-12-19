@@ -20,7 +20,7 @@ const Sidebar: React.FC<SidebarProps> = ({ currentView, setView }) => {
     <aside className="w-16 md:w-64 bg-gray-900 border-r border-gray-800 flex flex-col items-center md:items-stretch h-screen sticky top-0">
       <div className="p-6 hidden md:block">
         <h1 className="text-xl font-bold bg-gradient-to-r from-blue-400 to-purple-500 bg-clip-text text-transparent">
-          AeroBuild AI
+          Mourish AI
         </h1>
       </div>
       <div className="flex-1 mt-4 px-2 space-y-2">
