@@ -2,7 +2,10 @@
 import React from 'react';
 
 export const MODELS = {
-  CHAT: 'gemini-3-pro-preview',
+  // Use Flash for general chat to improve reliability and speed
+  CHAT: 'gemini-3-flash-preview', 
+  // Use Pro for complex reasoning and code generation
+  BUILDER: 'gemini-3-pro-preview',
   SEARCH: 'gemini-3-flash-preview',
   IMAGE: 'gemini-3-pro-image-preview',
   VIDEO: 'veo-3.1-fast-generate-preview',
